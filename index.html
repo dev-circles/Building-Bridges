@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Multi Select Checkboxes</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="main.js"></script>
+  <!-- <script src="aframe-master.js"></script> -->
+  <link rel="stylesheet" href="main.css">
+
+ </head>
+ <body>
+  <br /><br />
+  <div class="container">
+   <h2 align="center">Hardware Shop</h2>
+   <br /><br />
+    <div class="row">
+      <div class="col-md-4">
+        <div class="multiselect-container">
+          <form method="post" id="framework_form">
+            <div class="form-group">
+              <label>Select Products</label>
+              <select id="framework" name="framework[]" multiple class="form-control" >
+                <option value="Codeigniter">Tiles</option>
+                <option value="CakePHP">Bricks</option>
+                <option value="Laravel">Cement</option>
+                <option value="YII">Paint</option>
+                <option value="Zend">Timber</option>
+                <option value="Symfony">Windows</option>
+                <option value="Phalcon">Doors</option>
+                <option value="Slim">Door Frames</option>
+                <option value="Codeigniter">Tiles</option>
+                <option value="CakePHP">Bricks</option>
+                <option value="Laravel">Cement</option>
+                <option value="YII">Paint</option>
+              </select>
+            </div>
+            <div class="form-group">
+             <input type="submit" class="btn btn-info" name="submit" value="Submit" />
+            </div>
+          </form>
+          <a-scene>
+    
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-3">
+
+      </div>
+
+      <div class="col-md-4 col-lg-3">
+        <figure>
+           
+        </figure> 
+      </div>
+    </div>
+  </div>
+   <!--  <a-sky src="don.jpg" rotation="0 -130 0"></a-sky>
+
+      <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
+              rotation="0 15 0"></a-text>
+    </a-scene> -->
+</body>
+</html>
+
+<script>
+$(document).ready(function(){
+ $('#framework').multiselect({
+  nonSelectedText: 'Pick a Donation',
+  enableFiltering: true,
+  enableCaseInsensitiveFiltering: true,
+  buttonWidth:'300px'
+ });
+ 
+ $('#framework_form').on('submit', function(event){
+  event.preventDefault();
+  var form_data = $(this).serialize();
+  $.ajax({
+   url:"insert.php",
+   method:"POST",
+   data:form_data,
+   success:function(data)
+   {
+    $('#framework option:selected').each(function(){
+     $(this).prop('selected', false);
+    });
+    $('#framework').multiselect('refresh');
+    alert(data);
+   }
+  });
+ });
+ 
+ 
+});
+</script>
